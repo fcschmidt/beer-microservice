@@ -29,5 +29,5 @@ def register_extensions(app):
     from beers.app.ext.migrate import migrate
 
     db.init_app(app)
-    migrate.init_app(app)
+    migrate.init_app(app, db)
     return app
