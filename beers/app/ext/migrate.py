@@ -1,8 +1,7 @@
 from flask_migrate import Migrate
-from beers.app.ext.db import db
 
 migrate = Migrate()
 
 
-def init_app(app):
+def init_app(app, db):
     migrate.init_app(app, db)
