@@ -26,6 +26,8 @@ def register_blueprints(app):
 def register_extensions(app):
     """Register extensions."""
     from beers.app.ext.db import db
+    from beers.app.ext.migrate import migrate
 
     db.init_app(app)
+    migrate.init_app(app)
     return app
