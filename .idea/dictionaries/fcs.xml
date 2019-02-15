@@ -1,8 +1,13 @@
 <component name="ProjectDictionaryState">
   <dictionary name="fcs">
     <words>
+      <w>createdb</w>
+      <w>dropdb</w>
+      <w>microservice</w>
+      <w>pytest</w>
       <w>sqlalchemy</w>
       <w>tablename</w>
+      <w>venv</w>
     </words>
   </dictionary>
 </component>
