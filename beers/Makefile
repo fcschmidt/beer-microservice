@@ -16,10 +16,10 @@ migrate:
 	flask db upgrade
 
 dropdb:
-	dropdb scheduling
+	dropdb beers
 
 createdb:
-	createdb scheduling
+	createdb beers
 
 run:
 	flask run
