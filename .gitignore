@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # C extensions
-*.so
+.venv/lib/python3.6/lib-dynload/ossaudiodev.cpython-36m-x86_64-linux-gnu.so
 
 # Distribution / packaging
 .Python
@@ -82,7 +82,7 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env
+beers/.env
 .venv
 env/
 venv/
@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Pycharm
+.idea
+

@@ -1,3 +1,8 @@
 <component name="ProjectDictionaryState">
-  <dictionary name="fcs" />
+  <dictionary name="fcs">
+    <words>
+      <w>sqlalchemy</w>
+      <w>tablename</w>
+    </words>
+  </dictionary>
 </component>
