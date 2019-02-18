@@ -18,9 +18,28 @@ class Beer(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @staticmethod
-    def get_all():
+    def update(beer, data):
+        beer.beer_name = data['beer_name']
+        beer.description = data['description']
+        beer.harmonization = data['harmonization']
+        beer.color = data['color']
+        beer.alcohol = data['alcohol']
+        beer.temperature = data['temperature']
+        beer.beer_image = data['beer_image']
+        db.session.commit()
+
+    @staticmethod
+    def get_beers():
         return Beer.query.all()
+
+    @staticmethod
+    def get_beer_id(beer_id):
+        return Beer.query.get(beer_id)
 
     def __repr__(self):
         return f'beers(id={self.id}, beer_name={self.beer_name}, description={self.description},' \
