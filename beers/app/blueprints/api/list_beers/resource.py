@@ -4,8 +4,9 @@ from flask_restful import Api, reqparse, fields, Resource
 from beers.app.blueprints.api.models.beer_model import Beer as BeerModel
 from beers.app.blueprints.api.models.ingredients_model import BeerIngredients as IngredientsModel
 
+from beers.app.blueprints.api.utils import beers_serializer
 
-from beers.app.blueprints.api.utils import beers_serializer, ingredients_serializer
+from beers.app.blueprints.api.responses import resp_not_items
 
 bp = Blueprint('rest_api', __name__, url_prefix='/api/v1')
 api = Api(bp)
@@ -40,36 +41,27 @@ class ListBeers(Resource):
 
     @staticmethod
     def get():
-        query = BeerModel.get_all()
-        serialized = beers_serializer(query)
-        serialized[0]['ingredients'] = ['test', 'test']
-        return jsonify(serialized)
+        query_beers = BeerModel.get_all()
 
+        if not query_beers:
+            return resp_not_items()
+        serialized = beers_serializer(query_beers)
 
-ingredients_parser = reqparse.RequestParser()
-ingredients_parser.add_argument('name', type=str)
-ingredients_parser.add_argument('ingredients', type=dict)
+        count = 0
+        ingredients_list = []
 
-resource_fields_ingredients = {
-    'id': fields.Integer,
-    'name': fields.String,
-    'beer_id': fields.Integer,
-}
+        for beer in query_beers:
+            quer_filter = IngredientsModel.filter_beer_id(beer.id)
 
-
-class BeerIngredients(Resource):
-
-    def __init__(self):
-        self.ingredients_args = ingredients_parser.parse_args()
-
-    @staticmethod
-    def get():
-        query = IngredientsModel.get_all()
-        serialized = ingredients_serializer(query)
+            if quer_filter:
+                for f in quer_filter:
+                    ingredients_list.append(f.name)
+                serialized[count]['ingredients'] = ingredients_list
+                count += 1
+                ingredients_list = []
         return jsonify(serialized)
 
 
 def init_app(app):
     api.add_resource(ListBeers, '/beers', endpoint='list_beers')
-    api.add_resource(BeerIngredients, '/beers/ingredients', endpoint='ingredients')
     app.register_blueprint(bp)
