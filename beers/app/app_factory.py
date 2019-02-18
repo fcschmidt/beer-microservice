@@ -18,8 +18,10 @@ def create_app(config_name):
 def register_blueprints(app):
     """Register Blueprints"""
     from beers.app.blueprints.api.beers import resource as beer_api
+    from beers.app.blueprints.api.list_beers import resource as list_beers_api
 
     beer_api.init_app(app)
+    list_beers_api.init_app(app)
     return app
 
 
