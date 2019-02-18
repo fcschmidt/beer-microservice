@@ -32,6 +32,10 @@ class BeerIngredients(db.Model):
         return BeerIngredients.query.get(_id)
 
     @staticmethod
+    def filter_ingredient_name(name):
+        return BeerIngredients.query.filter(BeerIngredients.name == name).all()
+
+    @staticmethod
     def filter_beer_id(beer_id):
         return BeerIngredients.query.filter(BeerIngredients.beer_id == beer_id).all()
 
