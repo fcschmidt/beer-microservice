@@ -134,7 +134,6 @@ class BeerItem(Resource):
     @staticmethod
     def delete(beer_id):
         query_beer = BeerModel.get_beer_id(beer_id)
-
         if not query_beer:
             return error_does_not_exist(None, beer_id)
 
