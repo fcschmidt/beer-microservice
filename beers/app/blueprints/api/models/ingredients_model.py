@@ -13,9 +13,23 @@ class BeerIngredients(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @staticmethod
-    def get_all():
+    def update(ingredient, data):
+        ingredient.name = data['name']
+        ingredient.beer_id = data['beer_id']
+        db.session.commit()
+
+    @staticmethod
+    def get_ingredients():
         return BeerIngredients.query.all()
+
+    @staticmethod
+    def get_ingredient_id(_id):
+        return BeerIngredients.query.get(_id)
 
     @staticmethod
     def filter_beer_id(beer_id):
