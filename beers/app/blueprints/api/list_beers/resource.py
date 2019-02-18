@@ -41,7 +41,7 @@ class ListBeers(Resource):
 
     @staticmethod
     def get():
-        query_beers = BeerModel.get_all()
+        query_beers = BeerModel.get_beers()
 
         if not query_beers:
             return resp_not_items()
@@ -52,7 +52,6 @@ class ListBeers(Resource):
 
         for beer in query_beers:
             quer_filter = IngredientsModel.filter_beer_id(beer.id)
-
             if quer_filter:
                 for f in quer_filter:
                     ingredients_list.append(f.name)
