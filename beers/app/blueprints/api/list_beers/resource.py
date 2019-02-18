@@ -1,12 +1,18 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from flask_restful import Api, reqparse, fields, Resource
 
 from beers.app.blueprints.api.models.beer_model import Beer as BeerModel
 from beers.app.blueprints.api.models.ingredients_model import BeerIngredients as IngredientsModel
 
-from beers.app.blueprints.api.utils import beers_serializer
+from beers.app.blueprints.api.utils import (
+    beers_serializer,
+    serializer,
+    add_ingredients,
+    parser_beers
+    )
 
 from beers.app.blueprints.api.responses import resp_not_items, resp_successfully
+from beers.app.blueprints.api.errors import error_does_not_exist
 
 bp = Blueprint('rest_api', __name__, url_prefix='/api/v1')
 api = Api(bp)
@@ -21,7 +27,6 @@ beers_parser.add_argument('alcohol', type=str)
 beers_parser.add_argument('temperature', type=str)
 beers_parser.add_argument('beer_image', type=str)
 
-
 resource_fields = {
     'id': fields.Integer,
     'beer_name': fields.String,
@@ -34,33 +39,69 @@ resource_fields = {
 }
 
 
-class ListBeers(Resource):
+ingredients_parser = reqparse.RequestParser()
+ingredients_parser.add_argument('name', type=str)
+
+resource_fields_ingredients = {
+    'id': fields.Integer,
+    'name': fields.String,
+    'beer_id': fields.Integer,
+}
+
+
+class ListFilterBeers(Resource):
 
     def __init__(self):
-        pass
+        self.beer_args = beers_parser.parse_args()
+        self.ingredients_args = ingredients_parser.parse_args()
 
-    @staticmethod
-    def get():
+    def get(self):
+        beer_name = self.beer_args['beer_name']
+        color = self.beer_args['color']
+        alcohol = self.beer_args['alcohol']
+        temperature = self.beer_args['temperature']
+        ingredient_name = self.ingredients_args['name']
+
         query_beers = BeerModel.get_beers()
-
+        serialized = beers_serializer(query_beers)
         if not query_beers:
             return resp_not_items()
-        serialized = beers_serializer(query_beers)
 
-        count = 0
-        ingredients_list = []
+        if beer_name:
+            query_name = BeerModel.filter_beer_name(beer_name)
+            error_does_not_exist(query_name, beer_name)
+            serialized = serializer(query_name)
+            return resp_successfully(serialized)
 
-        for beer in query_beers:
-            quer_filter = IngredientsModel.filter_beer_id(beer.id)
-            if quer_filter:
-                for f in quer_filter:
-                    ingredients_list.append(f.name)
-                serialized[count]['ingredients'] = ingredients_list
-                count += 1
-                ingredients_list = []
+        if color:
+            query_color = BeerModel.filter_beer_color(color)
+            error_does_not_exist(query_color, color)
+            serialized = serializer(query_color)
+            return resp_successfully(serialized)
+
+        if alcohol:
+            query_alcohol = BeerModel.filter_beer_alcohol(alcohol)
+            error_does_not_exist(query_alcohol, alcohol)
+            serialized = serializer(query_alcohol)
+            return resp_successfully(serialized)
+
+        if temperature:
+            query_temperature = BeerModel.filter_beer_temperature(temperature)
+            error_does_not_exist(query_temperature, temperature)
+            serialized = serializer(query_temperature)
+            return resp_successfully(serialized)
+
+        if ingredient_name:
+            query_ingredient = IngredientsModel.filter_ingredient_name(ingredient_name)
+            error_does_not_exist(query_ingredient, ingredient_name)
+            serialized = add_ingredients(query_beers, serialized)
+            response_parser = parser_beers(serialized, ingredient_name)
+            return resp_successfully(response_parser)
+
+        serialized = add_ingredients(query_beers, serialized)
         return resp_successfully(serialized)
 
 
 def init_app(app):
-    api.add_resource(ListBeers, '/beers', endpoint='list_beers')
+    api.add_resource(ListFilterBeers, '/beers', endpoint='list_beers')
     app.register_blueprint(bp)
