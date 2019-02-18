@@ -6,7 +6,7 @@ from beers.app.blueprints.api.models.ingredients_model import BeerIngredients as
 
 from beers.app.blueprints.api.utils import beers_serializer
 
-from beers.app.blueprints.api.responses import resp_not_items
+from beers.app.blueprints.api.responses import resp_not_items, resp_successfully
 
 bp = Blueprint('rest_api', __name__, url_prefix='/api/v1')
 api = Api(bp)
@@ -58,7 +58,7 @@ class ListBeers(Resource):
                 serialized[count]['ingredients'] = ingredients_list
                 count += 1
                 ingredients_list = []
-        return jsonify(serialized)
+        return resp_successfully(serialized)
 
 
 def init_app(app):
