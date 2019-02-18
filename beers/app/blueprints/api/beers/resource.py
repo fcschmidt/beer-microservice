@@ -106,7 +106,7 @@ class BeerItem(Resource):
 
         query_beer = BeerModel.get_beer_id(beer_id)
         if not query_beer:
-            return error_does_not_exist(None)
+            return error_does_not_exist(None, beer_id)
 
         query_ingredients = IngredientsModel.filter_beer_id(beer_id)
         count = 0
@@ -136,7 +136,7 @@ class BeerItem(Resource):
         query_beer = BeerModel.get_beer_id(beer_id)
 
         if not query_beer:
-            return error_does_not_exist(None)
+            return error_does_not_exist(None, beer_id)
 
         query_ingredients = IngredientsModel.filter_beer_id(beer_id)
         for query in query_ingredients:
