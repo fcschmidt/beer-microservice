@@ -49,6 +49,14 @@ class Beer(db.Model):
     def filter_beer_color(color):
         return Beer.query.filter(Beer.color == color).all()
 
+    @staticmethod
+    def filter_beer_alcohol(alcohol):
+        return Beer.query.filter(Beer.alcohol == alcohol).all()
+
+    @staticmethod
+    def filter_beer_temperature(temperature):
+        return Beer.query.filter(Beer.temperature == temperature).all()
+
     def __repr__(self):
         return f'beers(id={self.id}, beer_name={self.beer_name}, description={self.description},' \
             f'harmonization={self.harmonization}, color={self.color}, alcohol={self.alcohol},' \
