@@ -27,11 +27,11 @@ def resp_create_successfully():
 
 
 def resp_update_successfully():
-    """Response 201"""
+    """Response 200"""
     response = jsonify({
         'message': 'Beer update successfully!'
     })
-    response.status_code = 201
+    response.status_code = 200
     return response
 
 
