@@ -13,9 +13,9 @@ from beers.app.blueprints.api.utils import (
     )
 
 from beers.app.blueprints.api.responses import resp_not_items, resp_successfully
-from beers.app.blueprints.api.errors import error_does_not_exist
+from beers.app.blueprints.api.errors import error_does_not_exist, error_not_inserted
 
-from beers.app.blueprints.api.search.search import Search
+from beers.app.blueprints.api.search import Search
 
 bp = Blueprint('rest_api', __name__, url_prefix='/api/v1')
 api = Api(bp)
@@ -141,6 +141,8 @@ class SearchBeer(Resource):
 
     def get(self):
         search_item = self.search_args['search']
+        if not search_item:
+            return error_not_inserted()
 
         query_beers = BeerModel.get_beers()
         if not query_beers:
@@ -148,7 +150,8 @@ class SearchBeer(Resource):
 
         start_search = Search(query_beers, search_item)
         search_response = start_search.start_beer_serializer()
-        # return {'message': search_response}
+        if not search_response:
+            error_does_not_exist(None, search_item)
         return resp_successfully(search_response)
 
 
