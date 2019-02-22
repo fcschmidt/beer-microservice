@@ -158,5 +158,5 @@ class SearchBeers(Resource):
 def init_app(app):
     api.add_resource(ListFilterBeers, '/beers', endpoint='list_beers')
     api.add_resource(BeerItem, '/beers/<int:beer_id>', endpoint='beer_item')
-    api.add_resource(SearchBeer, '/beers/search', endpoint='search')
+    api.add_resource(SearchBeers, '/beers/search', endpoint='search')
     app.register_blueprint(bp)
