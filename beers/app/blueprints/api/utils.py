@@ -9,6 +9,11 @@ def beers_serializer(content):
     return serialized
 
 
+def beers_serializer_item(content):
+    serialized = beers_schema.dump(content, many=False).data
+    return serialized
+
+
 ingredients_schema = BeerIngredientsSchema(strict=True)
 
 
