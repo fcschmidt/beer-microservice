@@ -134,7 +134,7 @@ search_parser = reqparse.RequestParser()
 search_parser.add_argument('search', type=str)
 
 
-class SearchBeer(Resource):
+class SearchBeers(Resource):
 
     def __init__(self):
         self.search_args = search_parser.parse_args()
