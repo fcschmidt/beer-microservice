@@ -9,8 +9,7 @@ from beers.app.blueprints.api.utils import (
     beers_serializer_item,
     serializer,
     add_ingredients,
-    parser_beers,
-    ingredients_serializer
+    parser_beers
     )
 
 from beers.app.blueprints.api.responses import resp_not_items, resp_successfully
@@ -104,7 +103,7 @@ class ListFilterBeers(Resource):
         return resp_successfully(serialized)
 
 
-class BeerItems(Resource):
+class BeerItem(Resource):
 
     def __init__(self):
         self.beer_args = beers_parser.parse_args()
@@ -129,7 +128,21 @@ class BeerItems(Resource):
         return resp_successfully(serialized)
 
 
+search_parser = reqparse.RequestParser()
+search_parser.add_argument('search', type=str)
+
+
+class SearchBeer(Resource):
+
+    def __init__(self):
+        self.search_args = search_parser.parse_args()
+
+    def get(self):
+        search_item = self.beer_args['search']
+        pass
+
+
 def init_app(app):
     api.add_resource(ListFilterBeers, '/beers', endpoint='list_beers')
-    api.add_resource(BeerItems, '/beers/<int:beer_id>', endpoint='beer_item')
+    api.add_resource(BeerItem, '/beers/<int:beer_id>', endpoint='beer_item')
     app.register_blueprint(bp)
