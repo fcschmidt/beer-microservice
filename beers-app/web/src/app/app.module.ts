@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { BeersListComponent } from './beers-list/beers-list.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 import { BeerEditComponent } from './beer-edit/beer-edit.component';
+import { SearchBeerComponent } from './search-beer/search-beer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BeersListComponent,
     BeerDetailComponent,
-    BeerEditComponent
+    BeerEditComponent,
+    SearchBeerComponent
   ],
   imports: [
     BrowserModule,
