@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 
 import { Beer } from "../beer";
 import { BeerService } from "../beer.service";
@@ -14,7 +16,11 @@ export class BeersListComponent implements OnInit {
 
   beers: Beer[];
 
-  constructor(private beersService: BeerService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private beersService: BeerService
+  ) { }
 
   ngOnInit() {
     this.getBeers();
@@ -23,5 +29,10 @@ export class BeersListComponent implements OnInit {
   getBeers(): void {
     this.beersService.getBeers()
       .subscribe(beers => this.beers = beers);
+  }
+
+  deleteBeer(beer): void{
+    this.beersService.deleteBeer(beer).subscribe();
+    location.reload()
   }
 }

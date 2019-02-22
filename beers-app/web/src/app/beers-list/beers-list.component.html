@@ -11,6 +11,9 @@
           <a routerLink="/cervejas/{{ beer.id }}/{{ beer.beer_name }}" title="{{ beer.beer_name | uppercase}}">
             <img class="product__logo" src="../assets/images/Cerveja_Adriatica-1.jpg" alt="logo cerveja {{ beer.beer_name}}">
           </a>
+          <button class="delete" title="Deletar cerveja" (click)="deleteBeer(beer).load()">
+            x
+          </button>
         </li>
       </ul>
     </div>

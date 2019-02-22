@@ -17,4 +17,11 @@
   width: 13em;
   height: auto;
 }
+.products__catalog .products__list li .delete{
+  width: 2em;
+  height: 2em;
+  color: #778899;
+  background-color: #f1f1f1;
+  border: none;
+}
 
