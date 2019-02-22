@@ -1,0 +1,59 @@
+<div class="container" *ngIf="beer">
+  <ul class="breadcrumb">
+    <li><a routerLink="/cervejas">Home</a></li>
+    <li><a routerLink="/cervejas">Marcas</a></li>
+    <li><a routerLink="/cervejas">Cervejas</a></li>
+    <li>
+      <a routerLink="/cervejas/{{ beer.id }}/{{ beer.beer_name }}" class="active">
+        {{ beer.beer_name | uppercase }}</a>
+    </li>
+  </ul>
+
+  <ul class="methods">
+    <li>
+      <a href="">Editar</a>
+    </li>
+    <li>
+      <a href="">Cadastrar</a>
+    </li>
+    <li>
+      <a href="">Deletar</a>
+    </li>
+  </ul>
+
+  <div class="wrapper_content">
+    <div class="product__catalog">
+      <div class="product__item" >
+        <div class="product__image">
+          <img class="beer_image" src="../assets/images/Adriatica.jpg" alt="">
+        </div>
+        <div class="product__info">
+          <h1 class="beer_name">{{ beer.beer_name | uppercase}}</h1>
+          <p class="product__description">
+            {{ beer.description }}
+          </p>
+          <div class="harmonization">
+            <h4>Dicas de Harmonização</h4>
+            <p>{{ beer.harmonization }}</p>
+          </div>
+          <ul>
+            <li>
+              <p>Teor Alcoólico</p>
+              <span>{{ beer.alcohol }}% VOL</span>
+            </li>
+            <li>
+              <p>Temperatura</p>
+              <span>{{ beer.temperature }}° C</span>
+            </li>
+          </ul>
+          <div class="ingredients">
+            <p>Ingredientes</p>
+            <ul>
+              <li>malte</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

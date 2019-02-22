@@ -1,0 +1,20 @@
+.products__catalog .products__list{
+}
+.products__catalog .products__list li{
+  margin: 1em 0;
+  display: inline-flex;
+  width: 25%;
+}
+
+.products__catalog .products__list li a{
+  padding: .5em;
+  height: auto;
+  justify-content: center;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+}
+.products__catalog .products__list li a>.product__logo{
+  width: 13em;
+  height: auto;
+}
+
