@@ -96,7 +96,7 @@ class ListFilterBeers(Resource):
         if ingredient_name:
             query_ingredient = IngredientsModel.filter_ingredient_name(ingredient_name)
             error_does_not_exist(query_ingredient, ingredient_name)
-            serialized = add_ingredients(query_beers, serialized)  # rever
+            serialized = add_ingredients(query_beers, serialized)
             response_parser = parser_beers(serialized, ingredient_name)
             return resp_successfully(response_parser)
 
@@ -115,7 +115,7 @@ class BeerItems(Resource):
         query_beer = BeerModel.get_beer_id(beer_id)
         if not query_beer:
             error_does_not_exist(None, beer_id)
-            
+
         serialized = beers_serializer_item(query_beer)
         query_filter = IngredientsModel.filter_beer_id(beer_id)
 
