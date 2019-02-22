@@ -15,46 +15,46 @@
   background-color: #3C009B;
 }
 
-.wrapper_content .product__catalog{
+.product__catalog{
   display: flex;
 }
-.wrapper_content .product__catalog .product__item{
+.product__catalog .product__item{
   flex-wrap: wrap;
   flex: 2;
 }
-.wrapper_content .product__catalog .product__item .product__image{
+.product__catalog .product__item .product__image{
   width: 30%;
   float: left;
 }
-.wrapper_content .product__catalog .product__item .product__image .beer_image{
+.product__catalog .product__item .product__image .beer_image{
   padding-left: 4em;
 }
-.wrapper_content .product__catalog .product__info{
+.product__catalog .product__info{
   margin-right: .5em;
   width: 63%;
   float: right;
 }
-.wrapper_content .product__catalog .product__info .beer_name{
+.product__catalog .product__info .beer_name{
   padding-top: .5em;
   font-size: 3rem;
   font-weight: normal;
 }
-.wrapper_content .product__catalog .product__item .product__info .product__description{
+.product__catalog .product__item .product__info .product__description{
   padding-top: 1em;
   font-size: 1.5rem;
 }
 
-.wrapper_content .product__catalog .product__item .product__info .harmonization{
+.product__catalog .product__item .product__info .harmonization{
   padding-top: 1em;
 }
-.wrapper_content .product__catalog .product__item .product__info .harmonization h4{
+.product__catalog .product__item .product__info .harmonization h4{
   text-transform: uppercase;
 }
-.wrapper_content .product__catalog .product__item .product__info .harmonization p{
+.product__catalog .product__item .product__info .harmonization p{
   padding-top: 1em;
   font-size: 1.5rem;
 }
-.wrapper_content .product__catalog .product__item .product__info ul li{
+.product__catalog .product__item .product__info ul li{
   display: inline-block;
   padding: 1em 0;
   font-size: 1.3rem;
@@ -62,20 +62,22 @@
   text-transform: uppercase;
 
 }
-.wrapper_content .product__catalog .product__item .product__info ul li + li{
+.product__catalog .product__item .product__info .info li + li{
   padding-left: 3em;
 }
-.wrapper_content .product__catalog .product__item .product__info ul li span{
+.product__catalog .product__item .product__info .info li span{
   padding-top: .5em;
   font-size: 2.5rem;
 }
-.wrapper_content .product__catalog .product__item .product__info .ingredients p{
+.product__catalog .product__item .product__info .ingredients p{
   text-transform: uppercase;
   font-size: 1.3rem;
   font-weight: 600;
 }
-.wrapper_content .product__catalog .product__item .product__info .ingredients ul li{
+.product__catalog .product__item .product__info .ingredients ul li{
   text-transform: capitalize;
   font-weight: normal;
 }
-
+.product__catalog .product__item .product__info .ingredients ul li + li::before{
+  content: ',';
+}

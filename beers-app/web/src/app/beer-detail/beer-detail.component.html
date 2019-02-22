@@ -11,7 +11,7 @@
 
   <ul class="methods">
     <li>
-      <a href="">Editar</a>
+      <a routerLink="/cervejas/{{ beer.id }}/{{ beer.beer_name }}/edit">Editar</a>
     </li>
     <li>
       <a href="">Cadastrar</a>
@@ -36,7 +36,7 @@
             <h4>Dicas de Harmonização</h4>
             <p>{{ beer.harmonization }}</p>
           </div>
-          <ul>
+          <ul class="info">
             <li>
               <p>Teor Alcoólico</p>
               <span>{{ beer.alcohol }}% VOL</span>
@@ -48,8 +48,10 @@
           </ul>
           <div class="ingredients">
             <p>Ingredientes</p>
-            <ul>
-              <li>malte</li>
+            <ul class="ingredients__list">
+              <li *ngFor="let item of beer.ingredients">
+              {{ item }}
+              </li>.
             </ul>
           </div>
         </div>
