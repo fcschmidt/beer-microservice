@@ -115,6 +115,7 @@ class BeerItems(Resource):
         query_beer = BeerModel.get_beer_id(beer_id)
         if not query_beer:
             error_does_not_exist(None, beer_id)
+            
         serialized = beers_serializer_item(query_beer)
         query_filter = IngredientsModel.filter_beer_id(beer_id)
 
