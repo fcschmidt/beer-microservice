@@ -6,9 +6,11 @@ from beers.app.blueprints.api.models.ingredients_model import BeerIngredients as
 
 from beers.app.blueprints.api.utils import (
     beers_serializer,
+    beers_serializer_item,
     serializer,
     add_ingredients,
-    parser_beers
+    parser_beers,
+    ingredients_serializer
     )
 
 from beers.app.blueprints.api.responses import resp_not_items, resp_successfully
@@ -94,7 +96,7 @@ class ListFilterBeers(Resource):
         if ingredient_name:
             query_ingredient = IngredientsModel.filter_ingredient_name(ingredient_name)
             error_does_not_exist(query_ingredient, ingredient_name)
-            serialized = add_ingredients(query_beers, serialized)
+            serialized = add_ingredients(query_beers, serialized)  # rever
             response_parser = parser_beers(serialized, ingredient_name)
             return resp_successfully(response_parser)
 
@@ -102,6 +104,31 @@ class ListFilterBeers(Resource):
         return resp_successfully(serialized)
 
 
+class BeerItems(Resource):
+
+    def __init__(self):
+        self.beer_args = beers_parser.parse_args()
+        self.ingredients_args = ingredients_parser.parse_args()
+
+    @staticmethod
+    def get(beer_id):
+        query_beer = BeerModel.get_beer_id(beer_id)
+        if not query_beer:
+            error_does_not_exist(None, beer_id)
+        serialized = beers_serializer_item(query_beer)
+        query_filter = IngredientsModel.filter_beer_id(beer_id)
+
+        count = 0
+        ingredients_list = []
+        for item in query_filter:
+            if item:
+                ingredients_list.append(item.name)
+            serialized['ingredients'] = ingredients_list
+            count += 1
+        return resp_successfully(serialized)
+
+
 def init_app(app):
     api.add_resource(ListFilterBeers, '/beers', endpoint='list_beers')
+    api.add_resource(BeerItems, '/beers/<int:beer_id>', endpoint='beer_item')
     app.register_blueprint(bp)
