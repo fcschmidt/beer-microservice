@@ -28,7 +28,7 @@ beers_parser.add_argument('harmonization', type=str)
 beers_parser.add_argument('color', type=str)
 beers_parser.add_argument('alcohol', type=str)
 beers_parser.add_argument('temperature', type=str)
-beers_parser.add_argument('beer_image', type=str)
+beers_parser.add_argument('beers_images', type=str)
 
 resource_fields_beer = {
     'id': fields.Integer,
@@ -38,7 +38,7 @@ resource_fields_beer = {
     'color': fields.String,
     'alcohol': fields.String,
     'temperature': fields.String,
-    'beer_image': fields.String,
+    'beers_images': fields.String,
 }
 
 
