@@ -1,3 +1,52 @@
-<p>
-  beer-create works!
-</p>
+<div class="container">
+  <div class="wrapper_content">
+    <section class="beer__form">
+      <button (click)="goBack()">Voltar</button>
+      <h1 class="title">Cadastrar uma nova cerveja</h1>
+      <!--#beerForm="ngForm" (ngSubmit)="save(beerForm)"-->
+
+      <form method="post" #frm="ngForm" (ngSubmit)="create(frm)">
+        <div class="form-group">
+          <label for="">Nome da Cerveja</label><br>
+          <input class="form-control" placeholder="Nome da cerveja"
+                [ngModel]="beer.beer_name" type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="">Descrição da Cerveja</label><br>
+          <input class="form-control" placeholder="Descrição da cerveja"
+                 [ngModel]="beer.description" required type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="">Dicas de Harmonização</label><br>
+          <input class="form-control" placeholder="Dicas de Harmonização"
+                 [ngModel]="beer.harmonization" required type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="">Cor da Cerveja</label><br>
+          <input class="form-control" placeholder="Cor da cerveja"
+                 [ngModel]="beer.color" required type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="">Teor do alcoólico</label><br>
+          <input class="form-control" placeholder="0" [ngModel]="beer.alcohol" required type="number">
+        </div>
+
+        <div class="form-group">
+          <label for="">Temperatura</label><br>
+          <input class="form-control" placeholder="0" [ngModel]="beer.temperature" required type="number">
+        </div>
+
+        <div class="form-group temp">
+          <label for="">Imagem da Cerveja</label><br>
+          <input class="form-control" placeholder="0" [ngModel]="beer.beer_name" required type="file">
+        </div>
+        <button type="submit" [disabled]="frm.invalid">Salvar</button>
+      </form>
+    </section>
+  </div>
+</div>
+

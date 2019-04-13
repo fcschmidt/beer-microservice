@@ -29,4 +29,9 @@ export class BeerDetailComponent implements OnInit {
       .subscribe(beer => this.beer = beer);
       console.log(this.beer);
   }
+
+  deleteBeer(beer): void{
+    this.beerService.deleteBeer(beer).subscribe();
+    location.reload()
+  }
 }

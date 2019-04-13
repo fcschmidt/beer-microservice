@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from "@angular/common";
+import { FormGroup } from "@angular/forms";
+
+// import { Beer } from "../beer";
+import { BeerService } from "../beer.service";
 
 @Component({
   selector: 'app-beer-create',
@@ -7,9 +12,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BeerCreateComponent implements OnInit {
 
-  constructor() { }
+  beer: any;
+
+  constructor(
+    private location: Location,
+    private beerService: BeerService,
+  ) { }
 
   ngOnInit() {
+    this.beer = {};
+    // this.create();
   }
 
+  create(frm: FormGroup){
+    this.beerService.createBeer(this.beer).subscribe();
+  }
+  goBack(): void {
+    this.location.back();
+  }
 }

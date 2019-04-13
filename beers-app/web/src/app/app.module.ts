@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from "@angular/forms";
 
 import {BeerService} from "./beer.service";
 import { AppComponent } from './app.component';
@@ -9,6 +10,7 @@ import { BeersListComponent } from './beers-list/beers-list.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 import { BeerEditComponent } from './beer-edit/beer-edit.component';
 import { SearchBeerComponent } from './search-beer/search-beer.component';
+import { BeerCreateComponent } from './beer-create/beer-create.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,14 @@ import { SearchBeerComponent } from './search-beer/search-beer.component';
     BeersListComponent,
     BeerDetailComponent,
     BeerEditComponent,
-    SearchBeerComponent
+    SearchBeerComponent,
+    BeerCreateComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [BeerService],
   bootstrap: [AppComponent]

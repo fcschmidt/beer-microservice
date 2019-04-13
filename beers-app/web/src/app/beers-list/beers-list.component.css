@@ -13,7 +13,7 @@
   border: 1px solid #dddddd;
   border-radius: 3px;
 }
-.products__catalog .products__list li a>.product__logo{
+.products__catalog .products__list li a>.product__image{
   width: 13em;
   height: auto;
 }

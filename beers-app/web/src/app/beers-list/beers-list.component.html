@@ -9,11 +9,14 @@
       <ul class="products__list">
         <li *ngFor="let beer of beers">
           <a routerLink="/cervejas/{{ beer.id }}/{{ beer.beer_name }}" title="{{ beer.beer_name | uppercase}}">
-            <img class="product__logo" src="../assets/images/Cerveja_Adriatica-1.jpg" alt="logo cerveja {{ beer.beer_name}}">
+            <img class="product__image" src="../assets/images/Adriatica.jpg" alt="logo cerveja {{ beer.beer_name}}">
           </a>
-          <button class="delete" title="Deletar cerveja" (click)="deleteBeer(beer).load()">
-            x
-          </button>
+          <button class="delete" title="Deletar cerveja" (click)="deleteBeer(beer).load()">x</button>
+          <!--<ul>
+            <li>
+              <a routerLink="/cervejas" title="Deletar Cerveja" (click)="deleteBeer(beer)">x</a>
+            </li>
+          </ul>-->
         </li>
       </ul>
     </div>

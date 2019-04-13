@@ -10,7 +10,6 @@ class BeerSchema(Schema):
     alcohol = fields.String(dump_only=True)
     temperature = fields.String(dump_only=True)
     ingredients = fields.String(dump_only=True)
-    beer_image = fields.String(dump_only=True)
 
 
 class BeerIngredientsSchema(Schema):

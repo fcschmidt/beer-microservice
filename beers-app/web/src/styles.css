@@ -74,6 +74,10 @@ nav a.active{
   color: #868283;
   border-bottom: 2px solid #868283;
 }
+nav .search{
+  width: 40%;
+  float: left;
+}
 
 .breadcrumb li{
   display: inline-block;
@@ -91,3 +95,21 @@ nav a.active{
   font-weight: 600;
   color: #5E595C;
 }
+
+/* Beer Form */
+.beer__form{
+  width: 70%;
+}
+.beer__form .title{
+  padding: 1em 0;
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+.beer__form .form-group{
+  padding: .5em 0;
+}
+.beer__form .form-group .form-control{
+  width: 60%;
+  padding: .5em;
+}
+.beer__form .form-group .temp__group{}

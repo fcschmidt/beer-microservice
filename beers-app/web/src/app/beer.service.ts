@@ -1,50 +1,47 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+
 
 import { Beer } from './beer'
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({
   providedIn: 'root'
 })
 export class BeerService {
 
-  private apiUrl = 'http://localhost:5000/api/v1/beers';
-  private apiSearchUrl = 'http://localhost:5000/api/v1/beers/search?search=';
+  private API_URL = 'http://localhost:5000/api/v1/beers';
 
   constructor(private http: HttpClient) { }
 
-  /* GET: */
-  public getBeers(): Observable<Beer[]>{
-    return this.http.get<Beer[]>(this.apiUrl)
+  /* GET: beers from the server. */
+  getBeers(): Observable<Beer[]>{
+    return this.http.get<Beer[]>(this.API_URL)
   }
 
-  /* GET: */
-  public getBeer(beerId: number): Observable<Beer>{
-    const url =`${this.apiUrl}/${beerId}`;
+  /* GET: beer by id. */
+  getBeer(beerId: number): Observable<Beer>{
+    const url =`${this.API_URL}/${beerId}`;
     return this.http.get<Beer>(url)
-  }
-
-  /* GET: */
-  public searchBeer(search: string): Observable<Beer>{
-    const searchUrl = `${this.apiSearchUrl}${search}`;
-    return this.http.get<Beer>(searchUrl)
   }
 
   // Methods
 
-  /* POST: Add a new beer to the server */
+  /* POST: Add a new beer to the server. */
+  createBeer(parans) {
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+
+    return this.http.post(this.API_URL, parans)
+
+  }
+  /* PUT: Update the beer on the server. */
 
 
-  /* PUT: Update the beer on the server */
-
-
-  /* DELETE: Delete the beer from the server */
-
-
-
+  /* DELETE: Delete the beer from the server. */
+  deleteBeer(beer): Observable<Beer>{
+    const url = `${this.API_URL}/${beer.id}`;
+    return this.http.delete<Beer>(url);
+  }
 }

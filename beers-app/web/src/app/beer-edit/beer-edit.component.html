@@ -1,3 +1,51 @@
-<p>
-  beer-edit works!
-</p>
+<div class="container" *ngIf="beer">
+  <div class="wrapper_content">
+    <section class="beer__form">
+      <button (click)="goBack()">Voltar</button>
+      <h1 class="title">Editar</h1>
+      <!--#beerForm="ngForm" (ngSubmit)="save(beerForm)"-->
+      <form>
+        <div class="form-group">
+          <label for="">Nome da Cerveja</label><br>
+          <input class="form-control" placeholder="Nome da cerveja" type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="">Descrição</label><br>
+          <input class="form-control" placeholder="Discrição da cerveja" type="text" [ngModel]="beer.beer_name">
+        </div>
+
+        <div class="form-group">
+          <label for="">Dicas de Harmonização</label><br>
+          <input class="form-control" placeholder="Dicas de Harmonização" type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="">Cor da Cerveja</label><br>
+          <input class="form-control" placeholder="Cor da cerveja" type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="">Teor do alcoólico</label><br>
+          <input class="form-control" placeholder="0" type="number">
+        </div>
+
+        <div class="form-group">
+          <label for="">Temperatura Minima</label><br>
+          <input class="form-control" placeholder="0" type="number">
+        </div>
+        <div class="form-group temp">
+          <label for="">Temperatura Máxima</label><br>
+          <input class="form-control" placeholder="0" type="number">
+        </div>
+
+        <div class="form-group temp">
+          <label for="">Imagem da Cerveja</label><br>
+          <input class="form-control" placeholder="0" type="file">
+        </div>
+        <button type="submit">Salvar</button>
+      </form>
+    </section>
+  </div>
+</div>
+
