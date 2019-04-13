@@ -4,26 +4,21 @@ from beers.app.blueprints.api.models.ingredients_model import BeerIngredients as
 beers_schema = BeerSchema(strict=True)
 
 
-def beers_serializer(content):
-    serialized = beers_schema.dump(content, many=True).data
-    return serialized
-
-
-def beers_serializer_item(content):
-    serialized = beers_schema.dump(content, many=False).data
+def beers_serializer(content, state):
+    serialized = beers_schema.dump(content, many=state).data
     return serialized
 
 
 ingredients_schema = BeerIngredientsSchema(strict=True)
 
 
-def ingredients_serializer(content):
-    serialized = ingredients_schema.dump(content, many=True).data
+def ingredients_serializer(content, state):
+    serialized = ingredients_schema.dump(content, many=state).data
     return serialized
 
 
 def serializer(query):
-    serialized = beers_serializer(query)
+    serialized = beers_serializer(query, True)
     serialized = add_ingredients(query, serialized)
     return serialized
 
