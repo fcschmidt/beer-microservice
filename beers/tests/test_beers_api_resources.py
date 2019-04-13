@@ -1,5 +1,6 @@
 from beers.tests.scripts.populate_data_base import populate_beers
 
+
 def test_create_new_beer(client, session):
     new_beer = {
         'beer_name': 'Skoll',
@@ -63,6 +64,30 @@ def test_update_beer(client, session):
 
     expected = {
         'message': 'Beer update successfully!'
+    }
+    resp_json = response.get_json()
+    assert resp_json['message'] == expected['message']
+
+
+def test_delete_beer_not_exist(client, session):
+    populate_beers(3)
+    response = client.delete('/api/v1/beers/10')
+    assert response.status_code == 404
+
+    expected = {
+        'error': '10 does not exist.'
+    }
+    resp_json = response.get_json()
+    assert resp_json['error'] == expected['error']
+
+
+def test_delete_beer(client, session):
+    populate_beers(3)
+    response = client.delete('/api/v1/beers/1')
+    assert response.status_code == 202
+
+    expected = {
+        'message': 'Beer delete successfully!'
     }
     resp_json = response.get_json()
     assert resp_json['message'] == expected['message']
