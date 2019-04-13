@@ -26,7 +26,6 @@ beers_parser.add_argument('harmonization', type=str)
 beers_parser.add_argument('color', type=str)
 beers_parser.add_argument('alcohol', type=str)
 beers_parser.add_argument('temperature', type=str)
-beers_parser.add_argument('beer_image', type=str)
 
 
 resource_fields = {
@@ -36,8 +35,7 @@ resource_fields = {
     'harmonization': fields.String,
     'color': fields.String,
     'alcohol': fields.String,
-    'temperature': fields.String,
-    'beer_image': fields.String,
+    'temperature': fields.String
 }
 
 ingredients_parser = reqparse.RequestParser()
@@ -64,7 +62,6 @@ class Beers(Resource):
         color = self.beer_args['color']
         alcohol = self.beer_args['alcohol']
         temperature = self.beer_args['temperature']
-        beer_image = self.beer_args['beer_image']
         beer_ingredients = self.ingredients_args['ingredients']
 
         beers = BeerModel(
@@ -73,8 +70,7 @@ class Beers(Resource):
             harmonization=harmonization,
             color=color,
             alcohol=alcohol,
-            temperature=temperature,
-            beer_image=beer_image
+            temperature=temperature
         )
         beers.save()
 
@@ -101,7 +97,6 @@ class BeerItem(Resource):
         color = self.beer_args['color']
         alcohol = self.beer_args['alcohol']
         temperature = self.beer_args['temperature']
-        beer_image = self.beer_args['beer_image']
         beer_ingredients = self.ingredients_args['ingredients']
 
         query_beer = BeerModel.get_beer_id(beer_id)
@@ -125,8 +120,7 @@ class BeerItem(Resource):
             'harmonization': harmonization,
             'color': color,
             'alcohol': alcohol,
-            'temperature': temperature,
-            'beer_image': beer_image
+            'temperature': temperature
         }
         BeerModel.update(query_beer, data_beer)
         return resp_update_successfully()

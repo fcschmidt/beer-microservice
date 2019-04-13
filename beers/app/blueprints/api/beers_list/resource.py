@@ -6,16 +6,13 @@ from beers.app.blueprints.api.models.ingredients_model import BeerIngredients as
 
 from beers.app.blueprints.api.utils import (
     beers_serializer,
-    beers_serializer_item,
     serializer,
     add_ingredients,
     parser_beers
     )
 
 from beers.app.blueprints.api.responses import resp_not_items, resp_successfully
-from beers.app.blueprints.api.errors import error_does_not_exist, error_not_inserted
-
-from beers.app.blueprints.api.search import Search
+from beers.app.blueprints.api.errors import error_does_not_exist
 
 bp = Blueprint('rest_api', __name__, url_prefix='/api/v1')
 api = Api(bp)
@@ -28,7 +25,6 @@ beers_parser.add_argument('harmonization', type=str)
 beers_parser.add_argument('color', type=str)
 beers_parser.add_argument('alcohol', type=str)
 beers_parser.add_argument('temperature', type=str)
-beers_parser.add_argument('beers_images', type=str)
 
 resource_fields_beer = {
     'id': fields.Integer,
@@ -37,8 +33,7 @@ resource_fields_beer = {
     'harmonization': fields.String,
     'color': fields.String,
     'alcohol': fields.String,
-    'temperature': fields.String,
-    'beers_images': fields.String,
+    'temperature': fields.String
 }
 
 
@@ -66,7 +61,7 @@ class ListFilterBeers(Resource):
         ingredient_name = self.ingredients_args['name']
 
         query_beers = BeerModel.get_beers()
-        serialized = beers_serializer(query_beers)
+        serialized = beers_serializer(query_beers, True)
         if not query_beers:
             return resp_not_items()
 
@@ -117,7 +112,7 @@ class BeerItem(Resource):
         if not query_beer:
             error_does_not_exist(None, beer_id)
 
-        serialized = beers_serializer_item(query_beer)
+        serialized = beers_serializer(query_beer, False)
         query_filter = IngredientsModel.filter_beer_id(beer_id)
 
         count = 0
@@ -134,29 +129,7 @@ search_parser = reqparse.RequestParser()
 search_parser.add_argument('search', type=str)
 
 
-class SearchBeers(Resource):
-
-    def __init__(self):
-        self.search_args = search_parser.parse_args()
-
-    def get(self):
-        search_item = self.search_args['search']
-        if not search_item:
-            return error_not_inserted()
-
-        query_beers = BeerModel.get_beers()
-        if not query_beers:
-            error_does_not_exist(None, 'Beers')
-
-        start_search = Search(query_beers, search_item)
-        search_response = start_search.start_beer_serializer()
-        if not search_response:
-            error_does_not_exist(None, search_item)
-        return resp_successfully(search_response)
-
-
 def init_app(app):
-    api.add_resource(ListFilterBeers, '/beers', endpoint='list_beers')
+    api.add_resource(ListFilterBeers, '/beers', endpoint='beers_list')
     api.add_resource(BeerItem, '/beers/<int:beer_id>', endpoint='beer_item')
-    api.add_resource(SearchBeers, '/beers/search', endpoint='search')
     app.register_blueprint(bp)
