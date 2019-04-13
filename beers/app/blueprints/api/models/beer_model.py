@@ -12,7 +12,6 @@ class Beer(db.Model):
     color = db.Column(db.String(40), nullable=False)
     alcohol = db.Column(db.String(40), nullable=False)
     temperature = db.Column(db.String(40), nullable=False)
-    beer_image = db.Column(db.String)
 
     def save(self):
         db.session.add(self)
@@ -30,7 +29,6 @@ class Beer(db.Model):
         beer.color = data['color']
         beer.alcohol = data['alcohol']
         beer.temperature = data['temperature']
-        beer.beer_image = data['beer_image']
         db.session.commit()
 
     @staticmethod
@@ -60,5 +58,5 @@ class Beer(db.Model):
     def __repr__(self):
         return f'beers(id={self.id}, beer_name={self.beer_name}, description={self.description},' \
             f'harmonization={self.harmonization}, color={self.color}, alcohol={self.alcohol},' \
-            f'temperature={self.temperature}, beer_image={self.beer_image})'
+            f'temperature={self.temperature}'
 
