@@ -79,9 +79,15 @@ def test_filter_ingredients_by_name(session):
     assert query_ingredients is not None
 
     serialized = ingredients_serializer(query_ingredients, True)
-    assert serialized[0]['name'] == 'cevada'
-    assert serialized[0]['id'] == 1
-    assert serialized[0]['beer_id'] == 1
+    expected = [
+        {'beer_id': 1, 'id': 1, 'name': 'cevada'},
+        {'beer_id': 2, 'id': 5, 'name': 'cevada'},
+        {'beer_id': 3, 'id': 8, 'name': 'cevada'}
+    ]
+    assert len(serialized) == 3
+    assert serialized[0] == expected[0]
+    assert serialized[1] == expected[1]
+    assert serialized[2] == expected[2]
 
 
 def test_filter_by_beer_id(session):
