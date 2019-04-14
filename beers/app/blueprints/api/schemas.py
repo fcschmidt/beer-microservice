@@ -14,6 +14,6 @@ class BeerSchema(Schema):
 
 class BeerIngredientsSchema(Schema):
     id = fields.Integer(dump_only=True)
-    name = fields.String(dump_only=True)
+    ingredient_name = fields.String(dump_only=True)
     beer_id = fields.Integer(dump_only=True)
 

@@ -18,7 +18,7 @@ def populate_beers(amount):
         beer_id = beer.id
         for ingredient in ingredients_data[r]['ingredients'][0]['names']:
             ingredients = BeerIngredients(
-                name=ingredient,
+                ingredient_name=ingredient,
                 beer_id=beer_id
             )
             ingredients.save()

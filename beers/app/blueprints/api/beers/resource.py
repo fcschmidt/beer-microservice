@@ -39,12 +39,12 @@ resource_fields = {
 }
 
 ingredients_parser = reqparse.RequestParser()
-ingredients_parser.add_argument('name', type=str)
+ingredients_parser.add_argument('ingredient_name', type=str)
 ingredients_parser.add_argument('ingredients', type=dict)
 
 resource_fields_ingredients = {
     'id': fields.Integer,
-    'name': fields.String,
+    'ingredient_name': fields.String,
     'beer_id': fields.Integer,
 }
 
@@ -77,7 +77,7 @@ class Beers(Resource):
         beer_id = beers.id
         for ingredient in beer_ingredients['names']:
             ingredients = IngredientsModel(
-                name=ingredient,
+                ingredient_name=ingredient,
                 beer_id=beer_id
             )
             ingredients.save()
@@ -107,7 +107,7 @@ class BeerItem(Resource):
         count = 0
         for ingredient in beer_ingredients['names']:
             data_ingredient = {
-                'name': ingredient,
+                'ingredient_name': ingredient,
                 'beer_id': beer_id
             }
             query_ingredient = query_ingredients[count]

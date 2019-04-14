@@ -9,7 +9,7 @@ def test_create_ingredients(session):
     populate_beers(3)
     get_ingredients = BeerIngredients.get_ingredient_id(1)
     assert get_ingredients.id == 1
-    assert get_ingredients.name == 'cevada'
+    assert get_ingredients.ingredient_name == 'cevada'
 
 
 def test_delete_ingredients(session):
@@ -38,7 +38,7 @@ def test_update_ingredients(session):
     count = 0
     for ingredient in new_ingredients:
         data_ingredients = {
-            'name': ingredient,
+            'ingredient_name': ingredient,
             'beer_id': query_beer.id
         }
         query_ingredient = query_ingredients[count]
@@ -50,7 +50,7 @@ def test_update_ingredients(session):
     query_update_ingredients = BeerIngredients.filter_beer_id(query_beer.id)
     serialized = ingredients_serializer(query_update_ingredients, True)
     for r in range(0, len(serialized)):
-        assert serialized[r]['name'] == new_ingredients[r]
+        assert serialized[r]['ingredient_name'] == new_ingredients[r]
 
 
 def test_get_ingredients(session):
@@ -60,7 +60,7 @@ def test_get_ingredients(session):
 
     serialized = ingredients_serializer(query_ingredients, True)
     assert serialized[0]['beer_id'] == 1
-    assert serialized[0]['name'] == 'cevada'
+    assert serialized[0]['ingredient_name'] == 'cevada'
 
 
 def test_get_ingredient_by_id(session):
@@ -70,7 +70,7 @@ def test_get_ingredient_by_id(session):
 
     serialized = ingredients_serializer(query_ingredient, False)
     assert serialized['beer_id'] == 1
-    assert serialized['name'] == 'cevada'
+    assert serialized['ingredient_name'] == 'cevada'
 
 
 def test_filter_ingredients_by_name(session):
@@ -80,9 +80,9 @@ def test_filter_ingredients_by_name(session):
 
     serialized = ingredients_serializer(query_ingredients, True)
     expected = [
-        {'beer_id': 1, 'id': 1, 'name': 'cevada'},
-        {'beer_id': 2, 'id': 5, 'name': 'cevada'},
-        {'beer_id': 3, 'id': 8, 'name': 'cevada'}
+        {'beer_id': 1, 'id': 1, 'ingredient_name': 'cevada'},
+        {'beer_id': 2, 'id': 5, 'ingredient_name': 'cevada'},
+        {'beer_id': 3, 'id': 8, 'ingredient_name': 'cevada'}
     ]
     assert len(serialized) == 3
     assert serialized[0] == expected[0]

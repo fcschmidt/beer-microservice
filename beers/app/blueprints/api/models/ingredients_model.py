@@ -6,7 +6,7 @@ class BeerIngredients(db.Model):
     __tablename__ = 'ingredients'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    ingredient_name = db.Column(db.String, nullable=False)
     beer_id = db.Column(db.Integer, db.ForeignKey('beers.id'), nullable=False)
 
     def save(self):
@@ -19,7 +19,7 @@ class BeerIngredients(db.Model):
 
     @staticmethod
     def update(ingredient, data):
-        ingredient.name = data['name']
+        ingredient.ingredient_name = data['ingredient_name']
         ingredient.beer_id = data['beer_id']
         db.session.commit()
 
@@ -33,11 +33,11 @@ class BeerIngredients(db.Model):
 
     @staticmethod
     def filter_ingredient_name(name):
-        return BeerIngredients.query.filter(BeerIngredients.name == name).all()
+        return BeerIngredients.query.filter(BeerIngredients.ingredient_name == name).all()
 
     @staticmethod
     def filter_beer_id(beer_id):
         return BeerIngredients.query.filter(BeerIngredients.beer_id == beer_id).all()
 
     def __repr__(self):
-        return f'ingredients(id={self.id}, name={self.name}, beer_id={self.beer_id})'
+        return f'ingredients(id={self.id}, name={self.ingredient_name}, beer_id={self.beer_id})'
