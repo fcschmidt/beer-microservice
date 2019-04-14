@@ -73,13 +73,18 @@ def test_filter_beer_by_temperature(client, session):
 
 
 def test_filter_beer_by_ingredient_not_exist(client, session):
-    """Filtrar por ingredients: Junção quebrada, ver depois"""
-    pass
+    populate_beers(3)
+    response = client.get('/api/v1/beers?ingredient_name=uva')
+    assert response.status_code == 404
 
 
 def test_filter_beer_by_ingredient(client, session):
-    """Filtrar por  ingredients: Junção quebrada, ver depois"""
-    pass
+    populate_beers(3)
+    response = client.get('/api/v1/beers?ingredient_name=cevada')
+    assert response.status_code == 200
+
+    resp_json = response.get_json()
+    assert len(resp_json) == 3
 
 
 def test_get_beer_not_exist(client, session):
