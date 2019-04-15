@@ -125,10 +125,6 @@ class BeerItem(Resource):
         return resp_content_successfully(serialized)
 
 
-search_parser = reqparse.RequestParser()
-search_parser.add_argument('search', type=str)
-
-
 def init_app(app):
     api.add_resource(ListFilterBeers, '/beers', endpoint='beers_list')
     api.add_resource(BeerItem, '/beers/<int:beer_id>', endpoint='beer_item')
