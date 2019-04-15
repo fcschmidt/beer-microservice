@@ -56,6 +56,16 @@ List all beer to catalog and filter by beer name, beer color, alcohol, temperatu
 |GET|`http://localhost:5000/api/v1/beers?ingredient=<string>`|200||
 
 
+### Ingredients API
+
+Create and delete ingredients.
+
+|Method|URI|Status Code|Response|
+|-------|-------|-------|-------|
+|POST|`http://localhost:5000/api/v1/ingredients`|201|Ingredients create successfully!|
+|DELETE|`http://localhost:5000/api/v1/ingredients/<int:ingredient_id>`|202|Ingredients delete successfully!|
+
+
 ## Test Coverage
 
 |Module|Coverage|
@@ -63,6 +73,7 @@ List all beer to catalog and filter by beer name, beer color, alcohol, temperatu
 |app/app_factory.py|100%|
 |app/blueprints/api/beers/resource.py|100%|
 |app/blueprints/api/beers_list/resource.py|100%|
+|app/blueprints/api/ingredients/resource.py|100%|
 |app/blueprints/api/models/beer_model.py|100%|
 |app/blueprints/api/models/ingredients_model.py|100%|
 |app/blueprints/api/responses.py|100%|
