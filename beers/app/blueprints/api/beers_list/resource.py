@@ -11,7 +11,7 @@ from beers.app.blueprints.api.utils import (
     parser_beers
     )
 
-from beers.app.blueprints.api.responses import resp_not_items, resp_successfully
+from beers.app.blueprints.api.responses import resp_empty_data_base, resp_content_successfully
 from beers.app.blueprints.api.errors import error_does_not_exist
 
 bp = Blueprint('rest_api', __name__, url_prefix='/api/v1')
@@ -63,41 +63,41 @@ class ListFilterBeers(Resource):
         query_beers = BeerModel.get_beers()
         serialized = beers_serializer(query_beers, True)
         if not query_beers:
-            return resp_not_items()
+            return resp_empty_data_base()
 
         if beer_name:
             query_name = BeerModel.filter_beer_name(beer_name)
             error_does_not_exist(query_name, beer_name)
             serialized = serializer(query_name)
-            return resp_successfully(serialized)
+            return resp_content_successfully(serialized)
 
         if color:
             query_color = BeerModel.filter_beer_color(color)
             error_does_not_exist(query_color, color)
             serialized = serializer(query_color)
-            return resp_successfully(serialized)
+            return resp_content_successfully(serialized)
 
         if alcohol:
             query_alcohol = BeerModel.filter_beer_alcohol(alcohol)
             error_does_not_exist(query_alcohol, alcohol)
             serialized = serializer(query_alcohol)
-            return resp_successfully(serialized)
+            return resp_content_successfully(serialized)
 
         if temperature:
             query_temperature = BeerModel.filter_beer_temperature(temperature)
             error_does_not_exist(query_temperature, temperature)
             serialized = serializer(query_temperature)
-            return resp_successfully(serialized)
+            return resp_content_successfully(serialized)
 
         if ingredient:
             query_ingredient = IngredientsModel.filter_ingredient_name(ingredient)
             error_does_not_exist(query_ingredient, ingredient)
             serialized = add_ingredients(query_beers, serialized)
             response_parser = parser_beers(serialized, ingredient)
-            return resp_successfully(response_parser)
+            return resp_content_successfully(response_parser)
 
         serialized = add_ingredients(query_beers, serialized)
-        return resp_successfully(serialized)
+        return resp_content_successfully(serialized)
 
 
 class BeerItem(Resource):
@@ -122,7 +122,7 @@ class BeerItem(Resource):
                 ingredients_list.append(item.ingredient_name)
             serialized['ingredients'] = ingredients_list
             count += 1
-        return resp_successfully(serialized)
+        return resp_content_successfully(serialized)
 
 
 search_parser = reqparse.RequestParser()
