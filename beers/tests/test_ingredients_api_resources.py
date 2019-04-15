@@ -67,7 +67,7 @@ def test_delete_ingredient(client, session):
     assert response.status_code == 202
 
     expected = {
-        'message': 'Ingredient delete successfully!'
+        'message': 'Ingredient deleted successfully!'
     }
     resp_json = response.get_json()
     assert resp_json['message'] == expected['message']

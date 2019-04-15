@@ -18,7 +18,7 @@ def test_create_new_beer(client, session):
 
     resp_json = response.get_json()
     expected = {
-        'message': 'Beer create successfully!'
+        'message': 'Beer created successfully!'
     }
     assert resp_json['message'] == expected['message']
 
@@ -63,7 +63,7 @@ def test_update_beer(client, session):
     assert response.status_code == 200
 
     expected = {
-        'message': 'Beer update successfully!'
+        'message': 'Beer updated successfully!'
     }
     resp_json = response.get_json()
     assert resp_json['message'] == expected['message']
@@ -87,7 +87,7 @@ def test_delete_beer(client, session):
     assert response.status_code == 202
 
     expected = {
-        'message': 'Beer delete successfully!'
+        'message': 'Beer deleted successfully!'
     }
     resp_json = response.get_json()
     assert resp_json['message'] == expected['message']
