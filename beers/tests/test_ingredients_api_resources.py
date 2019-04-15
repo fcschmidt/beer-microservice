@@ -47,3 +47,27 @@ def test_create_new_ingredient(client, session):
     }
     resp_json = response.get_json()
     assert resp_json['message'] == expected['message']
+
+
+def test_delete_ingredient_not_exist(client, session):
+    populate_beers(3)
+    response = client.delete('/api/v1/ingredients/30')
+    assert response.status_code == 404
+
+    expected = {
+        'error': '30 does not exist.'
+    }
+    resp_json = response.get_json()
+    assert resp_json['error'] == expected['error']
+
+
+def test_delete_ingredient(client, session):
+    populate_beers(3)
+    response = client.delete('/api/v1/ingredients/1')
+    assert response.status_code == 202
+
+    expected = {
+        'message': 'Ingredient delete successfully!'
+    }
+    resp_json = response.get_json()
+    assert resp_json['message'] == expected['message']
