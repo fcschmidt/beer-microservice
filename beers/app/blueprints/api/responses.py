@@ -51,3 +51,12 @@ def resp_ingredients_create_successfully():
     })
     response.status_code = 201
     return response
+
+
+def resp_ingredient_delete_successfully():
+    """Response 202"""
+    response = jsonify({
+        'message': 'Ingredient delete successfully!'
+    })
+    response.status_code = 202
+    return response
