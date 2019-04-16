@@ -1,5 +1,7 @@
 from beers.tests.scripts.populate_data_base import populate_beers
 
+api_url = '/api/v1/beers'
+
 
 def test_create_new_beer(client, session):
     new_beer = {
@@ -13,14 +15,14 @@ def test_create_new_beer(client, session):
             {'names': ['cevada', 'lupulo', 'malte', 'trigo']}
         ]
     }
-    response = client.post('/api/v1/beers', json=new_beer)
+    response = client.post(api_url, json=new_beer)
     assert response.status_code == 201
 
     resp_json = response.get_json()
     expected = {
         'message': 'Beer created successfully!'
     }
-    assert resp_json['message'] == expected['message']
+    assert resp_json == expected
 
 
 def test_update_beer_not_exist(client, session):
@@ -36,14 +38,15 @@ def test_update_beer_not_exist(client, session):
             {'names': ['cevada', 'lupulo', 'malte', 'trigo']}
         ]
     }
-    response = client.put('/api/v1/beers/4', json=update_beer)
+    _id = 4
+    response = client.put(f'{api_url}/{_id}', json=update_beer)
     assert response.status_code == 404
 
     expected = {
         'error': '4 does not exist.'
     }
     resp_json = response.get_json()
-    assert resp_json['error'] == expected['error']
+    assert resp_json == expected
 
 
 def test_update_beer(client, session):
@@ -59,35 +62,38 @@ def test_update_beer(client, session):
             {'names': ['lupulo', 'malte', 'trigo']}
         ]
     }
-    response = client.put('/api/v1/beers/2', json=update_beer)
+    _id = 2
+    response = client.put(f'{api_url}/{_id}', json=update_beer)
     assert response.status_code == 200
 
     expected = {
         'message': 'Beer updated successfully!'
     }
     resp_json = response.get_json()
-    assert resp_json['message'] == expected['message']
+    assert resp_json == expected
 
 
 def test_delete_beer_not_exist(client, session):
     populate_beers(3)
-    response = client.delete('/api/v1/beers/10')
+    _id = 10
+    response = client.delete(f'{api_url}/{_id}')
     assert response.status_code == 404
 
     expected = {
         'error': '10 does not exist.'
     }
     resp_json = response.get_json()
-    assert resp_json['error'] == expected['error']
+    assert resp_json == expected
 
 
 def test_delete_beer(client, session):
     populate_beers(3)
-    response = client.delete('/api/v1/beers/1')
+    _id = 1
+    response = client.delete(f'{api_url}/{_id}')
     assert response.status_code == 202
 
     expected = {
         'message': 'Beer deleted successfully!'
     }
     resp_json = response.get_json()
-    assert resp_json['message'] == expected['message']
+    assert resp_json == expected

@@ -4,15 +4,8 @@ from flask_restful import Api, reqparse, fields, Resource
 from beers.app.blueprints.api.models.beer_model import Beer as BeerModel
 from beers.app.blueprints.api.models.ingredients_model import BeerIngredients as IngredientsModel
 
-from beers.app.blueprints.api.responses import (
-    resp_create_successfully,
-    resp_update_successfully,
-    resp_delete_successfully,
-    )
-
-from beers.app.blueprints.api.errors import (
-    error_does_not_exist,
-    )
+from beers.app.blueprints.api.responses import resp_successfully
+from beers.app.blueprints.api.errors import error_does_not_exist
 
 
 bp = Blueprint('beers_api', __name__, url_prefix='/api/v1')
@@ -81,7 +74,7 @@ class Beers(Resource):
                 beer_id=beer_id
             )
             ingredients.save()
-        return resp_create_successfully()
+        return resp_successfully('Beer', 201)
 
 
 class BeerItem(Resource):
@@ -123,7 +116,7 @@ class BeerItem(Resource):
             'temperature': temperature
         }
         BeerModel.update(query_beer, data_beer)
-        return resp_update_successfully()
+        return resp_successfully('Beer', 200)
 
     @staticmethod
     def delete(beer_id):
@@ -136,7 +129,7 @@ class BeerItem(Resource):
             ingredient = IngredientsModel.get_ingredient_id(query.id)
             ingredient.delete()
         query_beer.delete()
-        return resp_delete_successfully()
+        return resp_successfully('Beer', 202)
 
 
 def init_app(app):
