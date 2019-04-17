@@ -15,9 +15,8 @@ def test_delete_beer(session):
     populate_beers(2)
     query_beer = Beer.get_beer_id(1)
     query_beer.delete()
-    assert query_beer is not None
-    assert query_beer.id == 1
-    assert query_beer.beer_name == beers_data[0]['beer_name']
+    get_beer = Beer.get_beer_id(1)
+    assert get_beer is None
 
 
 def test_update_beer(session):
