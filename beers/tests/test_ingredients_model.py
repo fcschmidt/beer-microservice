@@ -14,16 +14,12 @@ def test_create_ingredients(session):
 
 def test_delete_ingredients(session):
     populate_beers(3)
-    query_beer = Beer.get_beer_id(1)
-    assert query_beer is not None
-    assert query_beer.id == 1
-
-    query_ingredients = BeerIngredients.filter_beer_id(query_beer.id)
+    query_ingredients = BeerIngredients.filter_beer_id(1)
     for query in query_ingredients:
         ingredient = BeerIngredients.get_ingredient_id(query.id)
         ingredient.delete()
-        serialized = ingredients_serializer(query_ingredients, True)
-        assert serialized[0]['beer_id'] == query_beer.id
+    query_ingredients = BeerIngredients.filter_beer_id(1)
+    assert len(query_ingredients) == 0
 
 
 def test_update_ingredients(session):
@@ -32,8 +28,6 @@ def test_update_ingredients(session):
     new_ingredients = ingredients_data[2]['ingredients'][0]['names']
 
     query_beer = Beer.get_beer_id(2)
-    assert query_beer is not None
-
     query_ingredients = BeerIngredients.filter_beer_id(query_beer.id)
     count = 0
     for ingredient in new_ingredients:
@@ -56,8 +50,6 @@ def test_update_ingredients(session):
 def test_get_ingredients(session):
     populate_beers(3)
     query_ingredients = BeerIngredients.get_ingredients()
-    assert query_ingredients is not None
-
     serialized = ingredients_serializer(query_ingredients, True)
     assert serialized[0]['beer_id'] == 1
     assert serialized[0]['ingredient_name'] == 'cevada'
@@ -66,8 +58,6 @@ def test_get_ingredients(session):
 def test_get_ingredient_by_id(session):
     populate_beers(3)
     query_ingredient = BeerIngredients.get_ingredient_id(1)
-    assert query_ingredient is not None
-
     serialized = ingredients_serializer(query_ingredient, False)
     assert serialized['beer_id'] == 1
     assert serialized['ingredient_name'] == 'cevada'
@@ -76,8 +66,6 @@ def test_get_ingredient_by_id(session):
 def test_filter_ingredients_by_name(session):
     populate_beers(3)
     query_ingredients = BeerIngredients.filter_ingredient_name('cevada')
-    assert query_ingredients is not None
-
     serialized = ingredients_serializer(query_ingredients, True)
     expected = [
         {'beer_id': 1, 'id': 1, 'ingredient_name': 'cevada'},
@@ -85,15 +73,12 @@ def test_filter_ingredients_by_name(session):
         {'beer_id': 3, 'id': 8, 'ingredient_name': 'cevada'}
     ]
     assert len(serialized) == 3
-    assert serialized[0] == expected[0]
-    assert serialized[1] == expected[1]
-    assert serialized[2] == expected[2]
+    for i in range(0, 3):
+        assert serialized[i] == expected[i]
 
 
 def test_filter_by_beer_id(session):
     populate_beers(3)
     query_beer_id = BeerIngredients.filter_beer_id(1)
-    assert query_beer_id is not None
-
     serialized = ingredients_serializer(query_beer_id, True)
     assert serialized[0]['beer_id'] == 1
