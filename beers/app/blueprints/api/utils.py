@@ -1,7 +1,7 @@
 from beers.app.blueprints.api.schemas import BeerSchema, BeerIngredientsSchema
 from beers.app.blueprints.api.models.ingredients_model import BeerIngredients as IngredientsModel
 
-beers_schema = BeerSchema(strict=True)
+beers_schema = BeerSchema()
 
 
 def beers_serializer(content, state):
@@ -9,7 +9,7 @@ def beers_serializer(content, state):
     return serialized
 
 
-ingredients_schema = BeerIngredientsSchema(strict=True)
+ingredients_schema = BeerIngredientsSchema()
 
 
 def ingredients_serializer(content, state):
