@@ -26,7 +26,9 @@ def db(app):
     _db.drop_all()
     _db.app = app
     _db.create_all()
+
     yield _db
+
     _db.drop_all()
 
 
