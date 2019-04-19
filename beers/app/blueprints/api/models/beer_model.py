@@ -6,7 +6,7 @@ class Beer(db.Model):
     __tablename__ = 'beers'
 
     id = db.Column(db.Integer, primary_key=True)
-    beer_name = db.Column(db.String, nullable=False, unique=False)
+    beer_name = db.Column(db.String, nullable=False, unique=True)
     description = db.Column(db.Text, nullable=False)
     harmonization = db.Column(db.Text, nullable=False)
     color = db.Column(db.String(40), nullable=False)
