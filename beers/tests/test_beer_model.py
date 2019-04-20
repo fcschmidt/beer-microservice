@@ -1,7 +1,7 @@
 import pytest
 from beers.tests.scripts.populate_data_base import populate_beers
 from beers.app.blueprints.api.models.beer_model import Beer
-from beers.tests.scripts.data import beers_data
+from beers.tests.scripts.data import beers_data, update_beer
 from beers.app.blueprints.api.utils import beers_serializer
 
 
@@ -23,12 +23,12 @@ class TestBeerModel:
 
     def test_update_beer(self):
         populate_beers(2)
-        new_data = beers_data[1]
+        new_data = update_beer
         query_beer = Beer.get_beer_id(1)
         Beer.update(query_beer, new_data)
         get_beer = Beer.get_beer_id(1)
         assert get_beer.id == 1
-        assert get_beer.beer_name == beers_data[1]['beer_name']
+        assert get_beer.beer_name == new_data['beer_name']
 
     def test_list_all_beers_empty(self):
         get_all_beers = Beer.get_beers()
