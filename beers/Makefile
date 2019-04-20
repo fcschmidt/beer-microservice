@@ -8,14 +8,10 @@ test:
 #	coverage run --source=app -m unittest discover -s tests/
 
 report:
-	@echo 'Report coverage'
+	@echo 'Report coverage and generate html'
 	coverage report
 	coverage html -d coverage_html
 
-html:
-	@echo 'Generate coverage html reports'
-#	coverage html
-	coverage html -d coverage_html
 
 install:
 	@echo 'Create environment and Instal dependences'
