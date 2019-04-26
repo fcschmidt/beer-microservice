@@ -8,7 +8,8 @@ from beers.app.blueprints.api.utils import (
     beers_serializer,
     serializer,
     add_ingredients,
-    parser_beers
+    parser_beers,
+    ingredients_serializer
     )
 
 from beers.app.blueprints.api.responses import resp_empty_data_base, resp_content_successfully
@@ -118,8 +119,7 @@ class BeerItem(Resource):
         count = 0
         ingredients_list = []
         for item in query_filter:
-            if item:
-                ingredients_list.append(item.ingredient_name)
+            ingredients_list.append(ingredients_serializer(item, False))
             serialized['ingredients'] = ingredients_list
             count += 1
         return resp_content_successfully(serialized)
