@@ -96,16 +96,16 @@ class BeerItem(Resource):
         if not query_beer:
             return error_does_not_exist(None, beer_id)
 
-        query_ingredients = IngredientsModel.filter_beer_id(beer_id)
-        count = 0
-        for ingredient in beer_ingredients['names']:
+        for ingredient in beer_ingredients['list']:
+            query_ingredient = IngredientsModel.get_ingredient_id(ingredient['id'])
+            if not query_ingredient:
+                return error_does_not_exist(None, ingredient['id'])
+
             data_ingredient = {
-                'ingredient_name': ingredient,
+                'ingredient_name': ingredient['ingredient_name'],
                 'beer_id': beer_id
             }
-            query_ingredient = query_ingredients[count]
             IngredientsModel.update(query_ingredient, data_ingredient)
-            count += 1
 
         data_beer = {
             'beer_name': beer_name.lower(),

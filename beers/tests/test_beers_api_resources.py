@@ -52,17 +52,21 @@ def test_update_beer_not_exist(client, session):
 def test_update_beer(client, session):
     populate_beers(3)
     update_beer = {
-        'beer_name': 'Skoll',
+        'beer_name': 'Adriática',
         'description': 'A Cerveja Adriática 600ml foi criada pelo alemão Henrique Thielen, um visionário cervejeiro do início do século XX, ela teve seu nome em homenagem a cervejaria que traduz toda uma era de tradição passada de pai para filho. Hoje, conhecida como a irmã mais velha da Original, ela é uma cerveja pedida certa para a mesa de bar. Reconhecidamente uma cerveja puro malte de alta qualidade, fácil de beber e com aromas especiais que dão um toque equilibrado!.',
         'harmonization': 'Ela é leve e refrescante, por isso harmoniza muito bem com pratos leves! Assim, um sabor não vai sobrepor o outro!',
         'color': 'clara',
-        'alcohol': '3',
-        'temperature': '4',
-        'ingredients': [
-            {'names': ['lupulo', 'malte', 'trigo']}
-        ]
+        'alcohol': '5',
+        'temperature': '5',
+        'ingredients': {
+            'list': [
+                {'ingredient_name': 'cevada', 'id': 1},
+                {'ingredient_name': 'lupulo', 'id': 2},
+                {'ingredient_name': 'malte', 'id': 3},
+            ]
+        }
     }
-    _id = 2
+    _id = 1
     response = client.put(f'{api_url}/{_id}', json=update_beer)
     assert response.status_code == 200
 

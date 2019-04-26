@@ -24,7 +24,9 @@ Create, update and delete beer.
 |DELETE|`http://localhost:5000/api/v1/beers/<int:beer_id>`|202|Beer delete successfully!|
 
 
-**Payload:**
+#### Payloads
+
+**Post:**
 
 ```json
 {
@@ -37,6 +39,26 @@ Create, update and delete beer.
     "ingredients": [
         {"names": ["cevada", "lupulo", "malte", "trigo"]}
     ]
+}
+```
+
+**Update:**
+
+```json
+{
+    "beer_name": "Skoll",
+    "description": "A Cerveja Adriática 600ml foi criada pelo alemão Henrique Thielen, um visionário cervejeiro do início do século XX, ela teve seu nome em homenagem a cervejaria que traduz toda uma era de tradição passada de pai para filho. Hoje, conhecida como a irmã mais velha da Original, ela é uma cerveja pedida certa para a mesa de bar. Reconhecidamente uma cerveja puro malte de alta qualidade, fácil de beber e com aromas especiais que dão um toque equilibrado!.",
+    "harmonization": "Ela é leve e refrescante, por isso harmoniza muito bem com pratos leves! Assim, um sabor não vai sobrepor o outro!",
+    "color": "clara",
+    "alcohol": "3",
+    "temperature": "0",
+    "ingredients": {
+        "list": [
+            {"ingredient_name": "cevada", "id": 1},
+            {"ingredient_name": "lupulo", "id": 2},
+            {"ingredient_name": "malte", "id": 3},
+        ]
+    }
 }
 ```
 
