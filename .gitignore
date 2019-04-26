@@ -106,7 +106,6 @@ venv.bak/
 # Pycharm
 .idea/
 migrations/
-beers/scripts/
 garbage/
 coverage_html/
 
