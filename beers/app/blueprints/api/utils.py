@@ -29,9 +29,8 @@ def add_ingredients(query, serialized):
     for beer in query:
         quer_filter = IngredientsModel.filter_beer_id(beer.id)
         if quer_filter:
-            for f in quer_filter:
-                ingredients_list.append(f.ingredient_name)
-            serialized[count]['ingredients'] = ingredients_list
+            ingredients_list.append(ingredients_serializer(quer_filter, True))
+            serialized[count]['ingredients'] = ingredients_list[0]
             count += 1
             ingredients_list = []
     return serialized
