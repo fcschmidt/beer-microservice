@@ -39,8 +39,9 @@ def add_ingredients(query, serialized):
 def parser_beers(serialized, name):
     beers = []
     for beer in serialized:
-        if name in beer['ingredients']:
-            beers.append(beer)
+        for ingredient in beer['ingredients']:
+            if ingredient['ingredient_name'] == name:
+                beers.append(beer)
     return beers
 
 
