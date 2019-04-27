@@ -39,7 +39,7 @@ resource_fields_beer = {
 
 
 ingredients_parser = reqparse.RequestParser()
-ingredients_parser.add_argument('ingredient_name', type=str)
+ingredients_parser.add_argument('ingredient', type=str)
 
 resource_fields_ingredients = {
     'id': fields.Integer,
@@ -59,7 +59,7 @@ class ListFilterBeers(Resource):
         color = self.beer_args['color']
         alcohol = self.beer_args['alcohol']
         temperature = self.beer_args['temperature']
-        ingredient = self.ingredients_args['ingredient_name']
+        ingredient = self.ingredients_args['ingredient']
 
         query_beers = BeerModel.get_beers()
         serialized = beers_serializer(query_beers, True)
