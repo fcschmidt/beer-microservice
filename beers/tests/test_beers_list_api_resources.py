@@ -74,13 +74,13 @@ def test_filter_beer_by_temperature(client, session):
 
 def test_filter_beer_by_ingredient_not_exist(client, session):
     populate_beers(3)
-    response = client.get('/api/v1/beers?ingredient_name=uva')
+    response = client.get('/api/v1/beers?ingredient=uva')
     assert response.status_code == 404
 
 
 def test_filter_beer_by_ingredient(client, session):
     populate_beers(3)
-    response = client.get('/api/v1/beers?ingredient_name=cevada')
+    response = client.get('/api/v1/beers?ingredient=cevada')
     assert response.status_code == 200
 
     resp_json = response.get_json()
