@@ -96,9 +96,27 @@ nav .search{
   color: #5E595C;
 }
 
+section .submit{
+  margin-top: .5em;
+  padding: .5em 1.5em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: darkolivegreen;
+  border: none;
+}
+section .submit:focus,
+section .submit:hover{
+  opacity: .9;
+}
+
+
+
 /* Beer Form */
 .beer__form{
-  width: 70%;
+  margin-bottom: 10em;
+  width: 60%;
+  float: left;
 }
 .beer__form .title{
   padding: 1em 0;
@@ -109,7 +127,28 @@ nav .search{
   padding: .5em 0;
 }
 .beer__form .form-group .form-control{
-  width: 60%;
+  width: 80%;
   padding: .5em;
 }
-.beer__form .form-group .temp__group{}
+.beer__form .submit{
+  border: none;
+}
+
+
+/* Ingredient Form */
+.ingredient__form{
+  width: 40%;
+  float: right;
+}
+.ingredient__form .title{
+  padding: 1em 0;
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+.ingredient__form .form-group{
+  padding: .5em 0 ;
+}
+.ingredient__form .form-group .form-control{
+  width: 100%;
+  padding: .5em;
+}
