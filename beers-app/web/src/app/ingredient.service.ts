@@ -15,6 +15,9 @@ export class IngredientService {
   constructor(private http: HttpClient) { }
 
   /*POST: Add a new ingredient to the server. */
+  /*createIngredient(ingredient): Observable<Ingredient>{
+    const url = `${this.API_URL}`
+  }*/
 
   /*DELETE: Delete the ingredient from the server. */
   deleteIngredient(ingredient): Observable<Ingredient>{
