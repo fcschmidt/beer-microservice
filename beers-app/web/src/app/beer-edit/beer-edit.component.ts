@@ -1,11 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
+// import { Location } from "@angular/common";
 // import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 
 import { Beer } from "../beer";
+import { Ingredient } from "../ingredient";
 import { BeerService } from "../beer.service";
-import {NgForm} from "@angular/forms";
+import { IngredientService } from "../ingredient.service";
+// import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-beer-edit',
@@ -15,12 +17,14 @@ import {NgForm} from "@angular/forms";
 export class BeerEditComponent implements OnInit {
 
   @Input() beer: Beer;
+  @Input() ingredient: Ingredient;
 
   constructor(
     // private formBuilder: FormBuilder,
-    private location: Location,
+    // private location: Location,
     private route: ActivatedRoute,
     private beerService: BeerService,
+    private ingredientService: IngredientService,
   ) { }
 
   /*beerForm: FormGroup;
@@ -45,11 +49,17 @@ export class BeerEditComponent implements OnInit {
       console.log(this.beer);
   }
 
-  save(form: NgForm){
-
+  deleteIngredient(ingredient): void{
+    this.ingredientService.deleteIngredient(ingredient).subscribe();
+    location.reload();
+    this.getBeer()
   }
 
-  goBack(): void {
-    this.location.back();
-  }
+  // save(form: NgForm){
+  //
+  // }
+
+  // goBack(): void {
+  //   this.location.back();
+  // }
 }

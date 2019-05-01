@@ -1,11 +1,10 @@
 <div class="container" *ngIf="beer">
+  <ul class="methods">
+    <li><a routerLink="/cervejas/{{ beer.id }}/{{ beer.beer_name }}">Voltar</a></li>
+    <li><a href="">Novo Ingrediente</a></li>
+  </ul>
   <div class="wrapper_content">
     <section class="beer__form">
-      <button (click)="goBack()">Voltar</button>
-      <!--<ul>
-        <li><a routerLink="/cervejas/{{ beer.id }}/{{ beer.beer_name }}">Voltar</a></li>
-        <li><a href="">Novo Ingrediente</a></li>
-      </ul>-->
       <h1 class="title">Editar</h1>
 
       <form>
@@ -18,7 +17,7 @@
 
         <div class="form-group">
           <label for="">Descrição</label><br>
-          <input class="form-control"
+          <input class="form-control description_text"
                  required
                  [(ngModel)]="beer.description" name="description" type="text">
         </div>
@@ -56,9 +55,12 @@
           <input class="form-control"
                  required
                  [(ngModel)]="ingredient['ingredient_name']" name="{{ ingredient['ingredient_name'] }}">
+          <a class="delete_ingredient"
+             routerLink="/cervejas/edit/{{ beer.id }}/{{ beer.beer_name }}" title="Deletar ingrediente"
+             (click)="deleteIngredient(ingredient).load()" >x</a>
         </div>
 
-        <div class="form-group temp">
+        <div class="form-group">
           <label for="">Imagem da Cerveja</label><br>
           <input class="form-control" placeholder="0" type="file">
         </div>
