@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/cervejas', pathMatch: 'full' },
   { path: 'cervejas', component: BeersListComponent },
   { path: 'cervejas/:id/:beer_name', component: BeerDetailComponent },
-  { path: 'cervejas/:id/:beer_name/edit', component: BeerEditComponent},
+  { path: 'cervejas/edit/:id/:beer_name', component: BeerEditComponent},
   { path: 'cervejas/create', component: BeerCreateComponent}
 ];
 
