@@ -11,7 +11,7 @@
 
   <ul class="methods">
     <li>
-      <a routerLink="/cervejas/{{ beer.id }}/{{ beer.beer_name }}/edit">Editar</a>
+      <a routerLink="/cervejas//edit/{{ beer.id }}/{{ beer.beer_name }}">Editar</a>
     </li>
     <li>
       <a routerLink="/cervejas/create">Cadastrar</a>
@@ -49,8 +49,8 @@
           <div class="ingredients">
             <p>Ingredientes</p>
             <ul class="ingredients__list">
-              <li *ngFor="let item of beer.ingredients">
-              {{ item }}
+              <li *ngFor="let ingredient of beer.ingredients">
+              {{ ingredient['ingredient_name'] }}
               </li>.
             </ul>
           </div>
