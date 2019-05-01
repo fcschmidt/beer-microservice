@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from "@angular/forms";
 
 import {BeerService} from "./beer.service";
+import {IngredientService} from "./ingredient.service";
 import { AppComponent } from './app.component';
 import { BeersListComponent } from './beers-list/beers-list.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
@@ -27,7 +28,7 @@ import { BeerCreateComponent } from './beer-create/beer-create.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [BeerService],
+  providers: [BeerService, IngredientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
