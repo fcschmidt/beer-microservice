@@ -55,9 +55,12 @@
           <input class="form-control"
                  required
                  [(ngModel)]="ingredient['ingredient_name']" name="{{ ingredient['ingredient_name'] }}">
+
+
+          <a class="edit_ingredient" href="">Editar</a>
           <a class="delete_ingredient"
              routerLink="/cervejas/edit/{{ beer.id }}/{{ beer.beer_name }}" title="Deletar ingrediente"
-             (click)="deleteIngredient(ingredient).load()" >x</a>
+          (click)="deleteIngredient(ingredient).load()" >x</a>
         </div>
 
         <div class="form-group">
@@ -65,12 +68,29 @@
           <input class="form-control" placeholder="0" type="file">
         </div>
 
-        <button type="submit">Salvar</button>
+        <button class="submit" type="submit">Enviar</button>
         <!--#beerForm="ngForm" (ngSubmit)="save(beerForm)"-->
       </form>
     </section>
 
-    <app-ingredient-create></app-ingredient-create>
+    <section class="ingredient__form" >
+      <h1 class="title">Adicionar ingrediente</h1>
+
+      <form (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label for="">Nome do Ingrediente</label><br>
+          <input class="form-control" required type="text">
+        </div>
+        <div>
+          <label for="">Id da Cerveja</label>
+          <p>{{ beer.id }}</p>
+        </div>
+
+        <button class="submit"  type="submit">Enviar</button>
+        <!--#beerForm="ngForm" (ngSubmit)="save(beerForm)"-->
+      </form>
+    </section>
   </div>
 </div>
 

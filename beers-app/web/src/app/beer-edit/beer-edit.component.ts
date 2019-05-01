@@ -7,6 +7,7 @@ import { Beer } from "../beer";
 import { Ingredient } from "../ingredient";
 import { BeerService } from "../beer.service";
 import { IngredientService } from "../ingredient.service";
+import {FormControl, FormGroup} from "@angular/forms";
 // import { NgForm } from "@angular/forms";
 
 @Component({
@@ -18,6 +19,10 @@ export class BeerEditComponent implements OnInit {
 
   @Input() beer: Beer;
   @Input() ingredient: Ingredient;
+
+  ingredientForm = new FormGroup({
+    ingredientName: new FormControl('')
+  });
 
   constructor(
     // private formBuilder: FormBuilder,
@@ -62,4 +67,8 @@ export class BeerEditComponent implements OnInit {
   // goBack(): void {
   //   this.location.back();
   // }
+
+  onSubmit(){
+    console.warn(this.ingredientForm.value)
+  }
 }
