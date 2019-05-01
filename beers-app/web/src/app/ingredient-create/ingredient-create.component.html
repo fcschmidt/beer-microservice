@@ -1,3 +1,18 @@
-<p>
-  ingredient-create works!
-</p>
+<section class="ingredient__form" >
+  <h1 class="title">Adicionar ingrediente</h1>
+
+  <form (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="">Nome do Ingrediente</label><br>
+      <input class="form-control" required type="text">
+    </div>
+    <div>
+      <label for="">Id da Cerveja</label>
+      <p></p>
+    </div>
+
+    <button class="submit" [disabled]="!ingredientForm.valid" type="submit">Salvar</button>
+    <!--#beerForm="ngForm" (ngSubmit)="save(beerForm)"-->
+  </form>
+</section>
