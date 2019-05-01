@@ -75,3 +75,55 @@ def test_delete_ingredient(client, session):
     }
     resp_json = response.get_json()
     assert resp_json == expected
+
+
+def test_update_ingredient_not_exist(client, session):
+    populate_beers(3)
+    data = {
+        'beer_id': 1,
+        'ingredient_name': 'trigo'
+    }
+    _id = 50
+    response = client.put(f'{api_url}/{_id}', json=data)
+    assert response.status_code == 404
+
+    expected = {
+        'error': '50 does not exist.'
+    }
+    resp_json = response.get_json()
+    assert resp_json == expected
+
+
+def test_update_ingredient_already_exist(client, session):
+    populate_beers(3)
+    data = {
+        'beer_id': 1,
+        'ingredient_name': 'cevada'
+    }
+    _id = 1
+    response = client.put(f'{api_url}/{_id}', json=data)
+    assert response.status_code == 400
+
+    expected = {
+        'error': 'An ingredient with this name already exists.'
+    }
+    resp_json = response.get_json()
+    assert resp_json == expected
+
+
+def test_update_ingredient(client, session):
+    populate_beers(3)
+    data = {
+        'beer_id': 1,
+        'ingredient_name': 'abacate'
+    }
+    _id = 1
+    response = client.put(f'{api_url}/{_id}', json=data)
+    assert response.status_code == 201
+
+    expected = {
+        'message': 'Ingredient created successfully!'
+    }
+    resp_json = response.get_json()
+    assert resp_json == expected
+
