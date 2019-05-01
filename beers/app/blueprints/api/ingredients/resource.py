@@ -50,6 +50,30 @@ class Ingredients(Resource):
 
 class IngredientsItem(Resource):
 
+    def __init__(self):
+        self.ingredients_args = ingredients_parser.parse_args()
+
+    def put(self, ingredient_id):
+        ingredient_name = self.ingredients_args['ingredient_name']
+        beer_id = self.ingredients_args['beer_id']
+
+        query_ingredient = IngredientsModel.get_ingredient_id(ingredient_id)
+        if not query_ingredient:
+            return error_does_not_exist(None, ingredient_id)
+
+        query_filter = IngredientsModel.filter_beer_id(beer_id)
+        serialized = ingredients_serializer(query_filter, True)
+        for item in serialized:
+            if item['ingredient_name'] == ingredient_name:
+                return error_already_exists()
+
+        data = {
+            'ingredient_name': ingredient_name,
+            'beer_id': beer_id
+        }
+        IngredientsModel.update(query_ingredient, data)
+        return resp_successfully('Ingredient', 201)
+
     @staticmethod
     def delete(ingredient_id):
         query_ingredient = IngredientsModel.get_ingredient_id(ingredient_id)
