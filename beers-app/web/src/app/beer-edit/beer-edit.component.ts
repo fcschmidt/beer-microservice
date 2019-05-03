@@ -1,14 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-// import { Location } from "@angular/common";
-// import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from "@angular/common";
+import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 
 import { Beer } from "../beer";
 import { Ingredient } from "../ingredient";
 import { BeerService } from "../beer.service";
 import { IngredientService } from "../ingredient.service";
-import {FormControl, FormGroup} from "@angular/forms";
-// import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-beer-edit',
@@ -18,57 +16,63 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class BeerEditComponent implements OnInit {
 
   @Input() beer: Beer;
+  // @Input() beerUpdate: BeerUpdate;
   @Input() ingredient: Ingredient;
 
-  ingredientForm = new FormGroup({
-    ingredientName: new FormControl('')
-  });
+  ingredientForm: FormGroup;
 
   constructor(
-    // private formBuilder: FormBuilder,
-    // private location: Location,
+    private formBuilder: FormBuilder,
+    private location: Location,
     private route: ActivatedRoute,
+    private router: Router,
     private beerService: BeerService,
     private ingredientService: IngredientService,
   ) { }
 
-  /*beerForm: FormGroup;
-  beer_name:string='';
-  description:string='';*/
-
 
   ngOnInit() {
     this.getBeer();
+    this.ingredientForm = this.formBuilder.group({
+      'ingredient_name': [null, Validators.required],
+      'beer_id': [null, Validators.required]
+    });
   }
 
+  /*
+  *  Beer Methods
+  * */
+
+  // GET: Get beer
   getBeer(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-
-    /*this.beerForm = this.formBuilder.group({
-      'beer_name': [null, Validators.required],
-      'description': [null, Validators.required],
-    });*/
-
     this.beerService.getBeer(id)
       .subscribe(beer => this.beer = beer);
       console.log(this.beer);
   }
 
+  // UPDATE: Update Beer
+  /*updateBeer(form: NgForm) {
+
+  }*/
+
+  /*
+  *  Ingredient Methods
+  * */
+
+  // ADD: Add a new ingredient
+   addIngredient(form: NgForm) {
+     this.ingredientService.addIngredient(form)
+       .subscribe((ingredient: Ingredient) => {
+         console.log(ingredient);
+       });
+     location.reload();
+   }
+
+  // DELETE: Delete the ingredient
   deleteIngredient(ingredient): void{
     this.ingredientService.deleteIngredient(ingredient).subscribe();
     location.reload();
     this.getBeer()
-  }
-
-  // save(form: NgForm){
-  //
-  // }
-
-  // goBack(): void {
-  //   this.location.back();
-  // }
-
-  onSubmit(){
-    console.warn(this.ingredientForm.value)
   }
 }
